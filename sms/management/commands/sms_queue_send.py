@@ -3,7 +3,7 @@ from django.conf import settings
 from sms.models import SmsQueue
 
 class Command(NoArgsCommand):
-    help = "Synchronize SmsSender"
+    help = "Send messages from queue"
 
     def handle_noargs(self, **options):
         SmsQueue.send()
