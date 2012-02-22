@@ -1,0 +1,43 @@
+WHAT
+
+Sms queue with smsapi.pl gateway support for Django
+
+
+CONFIGURATION
+
+1. Add this application in the ``INSTALLED_APPS`` portion of your settings file.
+
+INSTALLED_APPS = (
+    # ...
+    'sms',
+)
+
+2. Activate views for callbacks.
+
+urlpatterns = patterns('',
+    # ...
+    (r'^cbsms/', include('sms.urls')),
+)
+
+Urls:
+/cbsms/received_sms/
+/cbsms/delivery_report/
+
+
+3. Add this parameters to your settings file:
+
+SMS_GATEWAY = 'sms.smsapi.gateway'
+SMSAPI_LOGIN = <smsapi_login>
+SMSAPI_PASS = <smsapi_pass>
+
+
+USAGE
+
+Send all smses from queue with status 'Not sent':
+
+1. for cycle task
+    import sms.models import SmsQueue
+    SmsQueue.send()
+
+2. from console
+    python manage.py sms_queue_send

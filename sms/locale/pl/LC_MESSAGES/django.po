@@ -1,0 +1,113 @@
+# Polish translation for django-sms.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the django-sms package.
+# Adam Bogdal <adam@bogdal.pl>, 2012.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-02-21 20:47+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Adam Bogdal <adam@bogdal.pl>\n"
+"Language-Team: Pl <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2)\n"
+
+#: admin.py:15 models/sms_queue.py:26 models/sms_receive.py:7
+#: models/sms_sender.py:38
+msgid "Sender"
+msgstr "Nadawca"
+
+#: admin.py:21
+msgid "Sms sent"
+msgstr "Sms wysłany"
+
+#: admin.py:22
+msgid "Send sms"
+msgstr "Wyślij sms"
+
+#: models/sms_queue.py:13
+msgid "Not sent"
+msgstr "Nie wysłano"
+
+#: models/sms_queue.py:14
+msgid "Sent"
+msgstr "Wysłano"
+
+#: models/sms_queue.py:15
+msgid "Dispatch error"
+msgstr "Błąd wysyłki"
+
+#: models/sms_queue.py:16
+msgid "Delivered"
+msgstr "Dostarczony"
+
+#: models/sms_queue.py:17
+msgid "Not delivered"
+msgstr "Nie dostarczony"
+
+#: models/sms_queue.py:25 models/sms_receive.py:8
+msgid "Recipient"
+msgstr "Odbiorca"
+
+#: models/sms_queue.py:27 models/sms_receive.py:9
+msgid "Message content"
+msgstr "Treść wiadomości"
+
+#: models/sms_queue.py:28
+msgid "Flash"
+msgstr "Flash"
+
+#: models/sms_queue.py:29
+msgid "Test"
+msgstr "Test"
+
+#: models/sms_queue.py:30 models/sms_receive.py:11
+msgid "Date created"
+msgstr "Data utworzenia"
+
+#: models/sms_queue.py:31 models/sms_receive.py:10
+msgid "Date sent"
+msgstr "Data wysłania"
+
+#: models/sms_queue.py:32
+msgid "Operator sms id"
+msgstr "Sms id operatora"
+
+#: models/sms_queue.py:33
+msgid "Status"
+msgstr "Status"
+
+#: models/sms_queue.py:34 models/sms_sender.py:10
+msgid "Is active?"
+msgstr "Czy aktywny?"
+
+#: models/sms_queue.py:77
+msgid "Sms"
+msgstr "Sms"
+
+#: models/sms_queue.py:78
+msgid "Smses"
+msgstr "Smsy"
+
+#: models/sms_receive.py:20
+msgid "Receive sms"
+msgstr "Odebrany sms"
+
+#: models/sms_receive.py:21
+msgid "Receive smses"
+msgstr "Odebrane smsy"
+
+#: models/sms_sender.py:9
+msgid "Sender name"
+msgstr "Nazwa nadawcy"
+
+#: models/sms_sender.py:39
+msgid "Senders"
+msgstr "Nadawcy"
