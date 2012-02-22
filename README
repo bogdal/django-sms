@@ -2,10 +2,6 @@ WHAT
 
 Sms queue with smsapi.pl gateway support for Django
 
-INSTALATION
-
-pip install -e git+git://github.com/bogdal/django-sms.git#egg=django-sms
-
 
 INSTALLATION
 
