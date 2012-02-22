@@ -9,7 +9,7 @@ setup(
     author='Adam Bogdal',
     author_email='adam@bogdal.pl',
     url = 'https://github.com/bogdal/django-sms',
-    download_url='',
+    download_url='https://github.com/bogdal/django-sms/zipball/master',
     packages=find_packages(),
     package_data = {
         'sms': ['locale/*/LC_MESSAGES/*']
