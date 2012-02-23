@@ -8,8 +8,8 @@ class BaseGateway:
     def get_senders_list(self):
         pass
 
-    def callback_received_sms(self, post_data):
+    def callback_received_sms(self, request_data):
         pass
 
-    def callback_delivery_report(self, post_data):
+    def callback_delivery_report(self, request_data):
         pass

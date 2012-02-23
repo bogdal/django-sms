@@ -8,6 +8,6 @@ def callback_delivery_report(request):
     module = import_module(settings.SMS_GATEWAY)
     gateway = module.Gateway()
 
-    result = gateway.callback_delivery_report(request.POST)
+    result = gateway.callback_delivery_report(request.GET)
 
     return HttpResponse(result)
