@@ -5,6 +5,9 @@ from sms.models import SmsReceive, SmsQueue
 from datetime import datetime
 
 class Gateway(BaseGateway):
+    
+    sms_callback_ips = ['46.4.31.8', '62.181.2.52']
+    
     def __init__(self):
         self.api = SMSApi()
 

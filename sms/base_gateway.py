@@ -2,6 +2,8 @@
 
 class BaseGateway:
 
+    sms_callback_ips = ['127.0.0.1']
+    
     def send_sms(self, sms_obj):
         pass
 
