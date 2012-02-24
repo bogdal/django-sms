@@ -35,6 +35,8 @@ SMS_GATEWAY = 'sms.smsapi.gateway'
 SMSAPI_LOGIN = <smsapi_login>
 SMSAPI_PASS = <smsapi_pass>
 
+(optional) The IPS which have access to views for callbacks
+SMS_CALLBACK_IPS = ['127.0.0.1', ...] - 
 
 USAGE
 

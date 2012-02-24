@@ -2,7 +2,7 @@
 
 class BaseGateway:
 
-    sms_callback_ips = ['127.0.0.1']
+    sms_callback_ips = ['127.0.0.1'] # The IPS which have access to views for callbacks
     
     def send_sms(self, sms_obj):
         pass
