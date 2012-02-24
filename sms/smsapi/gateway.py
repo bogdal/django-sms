@@ -1,18 +1,16 @@
 # -*- coding: utf-8 -*-
 from smsapi import SMSApi
-from sms.base_gateway import BaseGateway
 from sms.models import SmsReceive, SmsQueue
 from datetime import datetime
 
+SMS_CALLBACK_IPS = ['46.4.31.8', '62.181.2.52']
+
 class Gateway():
-    
-    sms_callback_ips = ['46.4.31.8', '62.181.2.52']
     
     def __init__(self):
         self.api = SMSApi()
 
     def send_sms(self, sms):
-
         sms_id = self.api.send_sms(
             number = sms.recipient,
             message = sms.content,
@@ -32,7 +30,6 @@ class Gateway():
         return result
 
     def callback_received_sms(self, request_data):
-
         if request_data.get('sms_from', None):
             smsDate = datetime.fromtimestamp(float(request_data.get('sms_date',0))).strftime("%Y-%m-%d %H:%M:%S")
 
@@ -51,7 +48,6 @@ class Gateway():
         return request_data.get(name, '').split(',')
         
     def callback_delivery_report(self, request_data):
-        
         if request_data.get('MsgId', None):
             msg_ids = self._get_list_from_request_data(request_data, 'MsgId')
             msg_statuses = self._get_list_from_request_data(request_data, 'status')
