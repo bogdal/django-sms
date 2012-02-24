@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.utils.importlib import import_module
 from django.utils.translation import ugettext as _
+from sms.gateway import Gateway
 
 class SmsSender(models.Model):
     name = models.CharField(max_length=255, verbose_name=_("Sender name"), unique=True)
@@ -14,9 +15,7 @@ class SmsSender(models.Model):
     
     @classmethod
     def synchronize(cls):
-        module = import_module(settings.SMS_GATEWAY)
-        gateway = module.Gateway()
-
+        gateway = Gateway()
         senders = gateway.get_senders_list()
 
         for sender in senders:
@@ -24,7 +23,7 @@ class SmsSender(models.Model):
             ss.active = True
             ss.save()
 
-        cls.all().exclude(name__in=senders).update(active=False)
+        cls.objects.all().exclude(name__in=senders).update(is_active=False)
             
     
     class Meta:

@@ -4,7 +4,7 @@ from sms.base_gateway import BaseGateway
 from sms.models import SmsReceive, SmsQueue
 from datetime import datetime
 
-class Gateway(BaseGateway):
+class Gateway():
     
     sms_callback_ips = ['46.4.31.8', '62.181.2.52']
     
@@ -25,7 +25,11 @@ class Gateway(BaseGateway):
         return sms_id
 
     def get_senders_list(self):
-        return self.api.getSenders()
+        try:
+            result = self.api.getSenders()
+        except AttributeError:
+            result = []
+        return result
 
     def callback_received_sms(self, request_data):
 

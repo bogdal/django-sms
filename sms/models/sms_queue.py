@@ -5,9 +5,9 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.template.loader import render_to_string
-from django.utils.importlib import import_module
 from django.utils.translation import ugettext as _
 from sms import SmsError
+from sms.gateway import Gateway
 
 SMS_STATUS = (
      ('not_sent', _("Not sent")),
@@ -44,8 +44,7 @@ class SmsQueue(models.Model):
         return False if self.sender else True
 
     def unit_send(self):
-        module = import_module(settings.SMS_GATEWAY)
-        gateway = module.Gateway()
+        gateway = Gateway()
 
         try:
             self.sms_id = gateway.send_sms(self)

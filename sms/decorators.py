@@ -2,6 +2,7 @@
 from django.conf import settings
 from django.utils.importlib import import_module
 from django.http import HttpResponse
+from sms.gateway import Gateway
 
 def ip_restrictions(func):
     def _decorated(*args, **kwargs):
@@ -9,8 +10,7 @@ def ip_restrictions(func):
         request = args[0]
         request_ip = request.META['REMOTE_ADDR']
         
-        module = import_module(settings.SMS_GATEWAY)
-        gateway = module.Gateway()
+        gateway = Gateway()
         
         try:
             restricted_ips = settings.SMS_CALLBACK_IPS
