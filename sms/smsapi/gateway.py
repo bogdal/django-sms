@@ -38,6 +38,14 @@ class Gateway():
             sms.recipient = request_data.get('sms_to', None)
             sms.content = request_data.get('sms_text', None)
             sms.date_sent = sms_date_sent
+            
+            try:
+                parent_sms = SmsQueue.objects.get(sms_id=request_data.get('MsgId', None))
+            except SmsQueue.DoesNotExist:
+                pass
+            else:
+                sms.parent_sms = parent_sms
+            
             sms.save()
 
             return 'OK'

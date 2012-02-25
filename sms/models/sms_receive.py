@@ -9,11 +9,12 @@ class SmsReceive(models.Model):
     content = models.TextField(verbose_name=_("Message content"), blank=True, null=True)
     date_sent = models.DateTimeField(verbose_name=_("Date sent"), blank=True, null=True)
     date_created = models.DateTimeField(verbose_name=_("Date created"), auto_now_add=True)
+    parent_sms = models.ForeignKey('SmsQueue', verbose_name=_("Parent sms"), blank=True, null=True)
     
     objects = models.Manager()
     
     def __unicode__(self):
-        return unicode(self.content)
+        return self.sender
 
     class Meta:
         app_label = "sms"
