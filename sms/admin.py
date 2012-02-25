@@ -26,7 +26,12 @@ class SmsSenderAdmin(admin.ModelAdmin):
     list_display = ('name', 'is_active')
 
 class SmsReceiveAdmin(admin.ModelAdmin):
-    list_display = ('sender', 'recipient', 'content', 'date_sent')
+    list_display = ('sender', 'recipient', 'content', 'date_sent', 'parent_content_field')
+    
+    def parent_content_field(self, obj):
+        if obj.parent_sms is not None:
+            return obj.parent_sms.content
+    parent_content_field.short_description = _("Content of parent sms")
 
 admin.site.register(SmsQueue, SmsQueueAdmin)
 admin.site.register(SmsSender, SmsSenderAdmin)
