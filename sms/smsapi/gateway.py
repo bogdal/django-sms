@@ -31,13 +31,13 @@ class Gateway():
 
     def callback_received_sms(self, request_data):
         if request_data.get('sms_from', None):
-            smsDate = datetime.fromtimestamp(float(request_data.get('sms_date',0))).strftime("%Y-%m-%d %H:%M:%S")
+            sms_date_sent = datetime.fromtimestamp(float(request_data.get('sms_date',0))).strftime("%Y-%m-%d %H:%M:%S")
 
             sms = SmsReceive()
             sms.sender = request_data.get('sms_from', None)
             sms.recipient = request_data.get('sms_to', None)
             sms.content = request_data.get('sms_text', None)
-            sms.sendDate = smsDate
+            sms.date_sent = sms_date_sent
             sms.save()
 
             return 'OK'
