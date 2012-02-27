@@ -6,7 +6,7 @@ from sms.models import SmsQueue, SmsSender, SmsReceive
 
 class SmsQueueAdmin(admin.ModelAdmin):
     search_fields = ['recipient', 'content','sms_id']
-    list_display = ('recipient','sender_field', 'status', 'content', 'date_sent','sms_id')
+    list_display = ('recipient','sender_field', 'status', 'last_status_change', 'content','sms_id')
     list_filter = ('test', 'sender')
     actions = ['send_sms']
 

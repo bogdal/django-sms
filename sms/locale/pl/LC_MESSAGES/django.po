@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-25 13:36+0100\n"
+"POT-Creation-Date: 2012-02-27 07:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Adam Bogdal <adam@bogdal.pl>\n"
 "Language-Team: Pl <LL@li.org>\n"
@@ -76,9 +76,9 @@ msgstr "Test"
 msgid "Date created"
 msgstr "Data utworzenia"
 
-#: models/sms_queue.py:31 models/sms_receive.py:10
-msgid "Date sent"
-msgstr "Data wysłania"
+#: models/sms_queue.py:31
+msgid "Last status change date"
+msgstr "Data ostatniej zmiany statusu"
 
 #: models/sms_queue.py:32
 msgid "Operator sms id"
@@ -92,13 +92,17 @@ msgstr "Status"
 msgid "Is active?"
 msgstr "Czy aktywny?"
 
-#: models/sms_queue.py:67
+#: models/sms_queue.py:71
 msgid "Sms"
 msgstr "Sms"
 
-#: models/sms_queue.py:68
+#: models/sms_queue.py:72
 msgid "Smses"
 msgstr "Smsy"
+
+#: models/sms_receive.py:10
+msgid "Date sent"
+msgstr "Data wysłania"
 
 #: models/sms_receive.py:12
 msgid "Parent sms"

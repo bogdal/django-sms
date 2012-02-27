@@ -28,7 +28,7 @@ class SmsQueue(models.Model):
     flash = models.BooleanField(verbose_name=_("Flash"), default=False)
     test = models.BooleanField(verbose_name=_("Test"), default=False)
     date_created = models.DateTimeField(verbose_name=_("Date created"), auto_now_add=True)
-    date_sent = models.DateTimeField(verbose_name=_("Date sent"), blank=True, null=True)
+    last_status_change = models.DateTimeField(verbose_name=_("Last status change date"), blank=True, null=True, default=datetime.now)
     sms_id = models.CharField(max_length=50, verbose_name=_("Operator sms id"), blank=True, null=True)
     status = models.CharField(max_length = 100, choices = SMS_STATUS, default = 'not_sent', verbose_name=_("Status"), blank = True)
     is_active = models.BooleanField(verbose_name=_("Is active?"), default=True)
@@ -49,10 +49,14 @@ class SmsQueue(models.Model):
         try:
             self.sms_id = gateway.send_sms(self)
         except SmsError:
-            self.status = 'error'
+            self.set_status("error")
         else:
-            self.date_sent = datetime.now()
-            self.status = 'sent'
+            self.set_status("sent")
+
+    def set_status(self, new_status, date_of_change=datetime.now()):
+        old_status = self.status
+        self.status = new_status
+        self.last_status_change = date_of_change
         self.save()
 
     @classmethod

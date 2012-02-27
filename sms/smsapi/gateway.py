@@ -31,13 +31,11 @@ class Gateway():
 
     def callback_received_sms(self, request_data):
         if request_data.get('sms_from', None):
-            sms_date_sent = datetime.fromtimestamp(float(request_data.get('sms_date',0))).strftime("%Y-%m-%d %H:%M:%S")
-
             sms = SmsReceive()
             sms.sender = request_data.get('sms_from', None)
             sms.recipient = request_data.get('sms_to', None)
             sms.content = request_data.get('sms_text', None)
-            sms.date_sent = sms_date_sent
+            sms.date_sent = self._date_from_unixtime_to_str(request_data.get('sms_date',0))
             
             try:
                 parent_sms = SmsQueue.objects.get(sms_id=request_data.get('MsgId', None))
@@ -52,6 +50,9 @@ class Gateway():
 
         return ''
 
+    def _date_from_unixtime_to_str(self, date):
+        return datetime.fromtimestamp(float(date)).strftime("%Y-%m-%d %H:%M:%S")
+    
     def _get_list_from_request_data(self, request_data, name):
         return request_data.get(name, '').split(',')
         
@@ -68,11 +69,9 @@ class Gateway():
                     pass
                 else:
                     if msg_statuses[index] == '404':
-                        sms.status = 'delivered'
+                        sms.set_status("delivered", self._date_from_unixtime_to_str(msg_delivery_date[index]))
                     elif msg_statuses[index] == '405':
-                        sms.status = 'not_delivered'
-
-                    sms.save()
+                        sms.set_status("not_delivered", self._date_from_unixtime_to_str(msg_delivery_date[index]))
                     
             return 'OK'
         
