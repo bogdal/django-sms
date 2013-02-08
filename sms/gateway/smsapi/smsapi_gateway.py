@@ -1,20 +1,21 @@
-# -*- coding: utf-8 -*-
-from smsapi import SMSApi
-from sms.models import SmsReceive, SmsQueue
 from datetime import datetime
+from sms.gateway.smsapi.api import Api
+from sms.utils import get_required_param
 
-SMS_CALLBACK_IPS = ['46.4.31.8', '62.181.2.52']
+SMSAPI_LOGIN = get_required_param('SMSAPI_LOGIN')
+SMSAPI_PASS = get_required_param('SMSAPI_PASS')
 
-class Gateway():
+
+class SmsApiGateway(object):
     
     def __init__(self):
-        self.api = SMSApi()
+        self.api = Api(SMSAPI_LOGIN, SMSAPI_PASS)
 
     def send_sms(self, sms):
         sms_id = self.api.send_sms(
-            number = sms.recipient,
-            message = sms.content,
-            sender = sms.sender,
+            number=sms.recipient,
+            message=sms.content,
+            sender=sms.sender,
             eco=sms.eco,
             flash=sms.flash,
             test=sms.test
@@ -22,24 +23,25 @@ class Gateway():
 
         return sms_id
 
-    def get_senders_list(self):
+    def get_senders(self):
         try:
-            result = self.api.getSenders()
+            result = self.api.get_senders()
         except AttributeError:
             result = []
         return result
 
     def callback_received_sms(self, request_data):
+        from sms.models import Inbox, Sms
         if request_data.get('sms_from', None):
-            sms = SmsReceive()
+            sms = Inbox()
             sms.sender = request_data.get('sms_from', None)
             sms.recipient = request_data.get('sms_to', None)
             sms.content = request_data.get('sms_text', None)
-            sms.date_sent = self._date_from_unixtime_to_str(request_data.get('sms_date',0))
+            sms.date_sent = self._date_from_unixtime_to_str(request_data.get('sms_date', 0))
             
             try:
-                parent_sms = SmsQueue.objects.get(sms_id=request_data.get('MsgId', None))
-            except SmsQueue.DoesNotExist:
+                parent_sms = Sms.objects.get(sms_id=request_data.get('MsgId', None))
+            except Sms.DoesNotExist:
                 pass
             else:
                 sms.parent_sms = parent_sms
@@ -47,7 +49,6 @@ class Gateway():
             sms.save()
 
             return 'OK'
-
         return ''
 
     def _date_from_unixtime_to_str(self, date):
@@ -57,6 +58,7 @@ class Gateway():
         return request_data.get(name, '').split(',')
         
     def callback_delivery_report(self, request_data):
+        from sms.models import Inbox, Sms
         if request_data.get('MsgId', None):
             msg_ids = self._get_list_from_request_data(request_data, 'MsgId')
             msg_statuses = self._get_list_from_request_data(request_data, 'status')
@@ -64,8 +66,8 @@ class Gateway():
             
             for index in range(0, len(msg_ids)):
                 try:
-                    sms = SmsQueue.objects.get(sms_id=msg_ids[index])
-                except SmsQueue.DoesNotExist:
+                    sms = Sms.objects.get(sms_id=msg_ids[index])
+                except Sms.DoesNotExist:
                     pass
                 else:
                     if msg_statuses[index] == '404':
@@ -74,7 +76,4 @@ class Gateway():
                         sms.set_status("not_delivered", self._date_from_unixtime_to_str(msg_delivery_date[index]))
                     
             return 'OK'
-        
         return ''
-
-
