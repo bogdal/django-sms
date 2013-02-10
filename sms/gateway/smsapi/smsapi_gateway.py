@@ -59,6 +59,11 @@ class SmsApiGateway(object):
         
     def callback_delivery_report(self, request_data):
         from sms.models import Inbox, Sms
+        statuses = {
+            '404': Sms.DELIVERED,
+            '405': Sms.NOT_DELIVERED,
+        }
+
         if request_data.get('MsgId', None):
             msg_ids = self._get_list_from_request_data(request_data, 'MsgId')
             msg_statuses = self._get_list_from_request_data(request_data, 'status')
@@ -70,10 +75,11 @@ class SmsApiGateway(object):
                 except Sms.DoesNotExist:
                     pass
                 else:
-                    if msg_statuses[index] == '404':
-                        sms.set_status("delivered", self._date_from_unixtime_to_str(msg_delivery_date[index]))
-                    elif msg_statuses[index] == '405':
-                        sms.set_status("not_delivered", self._date_from_unixtime_to_str(msg_delivery_date[index]))
+                    status = msg_statuses[index]
+
+                    if status in statuses:
+                        sms.status = statuses[status]
+                        sms.save()
                     
             return 'OK'
         return ''
