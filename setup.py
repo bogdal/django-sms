@@ -27,5 +27,6 @@ setup(
     zip_safe=False,
     install_requires=[
         'suds',
+        'requests',
     ],
 )
