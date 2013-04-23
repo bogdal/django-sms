@@ -13,7 +13,8 @@ class Clockwork(object):
             'key': self.api_key,
             'from': sender,
             'to': number,
-            'content': message
+            'content': message,
+            'long': 1,
         }
         response = requests.post(CLOCKWORK_API_URL, data=data)
         return response.text[response.text.rfind(' ')+1:].strip()

@@ -8,6 +8,7 @@ from sms.signals import post_send_sms
 
 
 class AbstractSms(models.Model):
+    sender = models.CharField(max_length=12, blank=True, null=True, verbose_name=_('sender'))
     recipient = models.CharField(max_length=11, verbose_name=_('recipient'))
     content = models.TextField(verbose_name=_('content'))
 
@@ -57,7 +58,6 @@ class Sms(AbstractSms):
         (NOT_DELIVERED, _('Not delivered')),
     )
 
-    sender = models.ForeignKey('sms.Sender', verbose_name=_('sender'), blank=True, null=True)
     flash = models.BooleanField(verbose_name=_('flash'), default=False)
     secure = models.BooleanField(verbose_name=_('secure'), default=False,
                                  help_text=_('Sms content after sending will be removed'))
@@ -99,7 +99,6 @@ class Sms(AbstractSms):
 
 
 class Inbox(AbstractSms):
-    sender = models.CharField(max_length=50, verbose_name=_('sender'))
     created = models.DateTimeField(_('created'), auto_now_add=True)
     sent = models.DateTimeField(verbose_name=_('sent'), blank=True, null=True)
     parent_sms = models.ForeignKey('sms.Sms', verbose_name=_('parent'), blank=True, null=True)

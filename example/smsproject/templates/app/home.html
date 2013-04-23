@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block container %}
+    <div class="span12">
+
+        <form class="form-horizontal" action="" method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                {{ form.as_p }}
+            </div>
+            <div class="submit-row">
+                <input type="submit" value="Send" class="btn btn-primary" />
+            </div>
+        </form>
+
+    </div>
+{% endblock %}
+

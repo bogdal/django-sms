@@ -6,7 +6,7 @@ class SimpleSmsForm(forms.ModelForm):
 
     class Meta:
         model = Sms
-        fields = ['recipient', 'content']
+        fields = ['sender', 'recipient', 'content']
 
 
 class SmsForm(forms.ModelForm):

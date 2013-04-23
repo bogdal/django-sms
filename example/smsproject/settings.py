@@ -15,12 +15,11 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'sqlite.db',                      # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
+        'NAME': os.path.join(PROJECT_PATH, 'database.db'),
         'USER': '',
         'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+        'HOST': '',
+        'PORT': '',
     }
 }
 
@@ -101,6 +100,17 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.request",
+    "django.core.context_processors.csrf",
+    "django.core.context_processors.static",
+    "django.contrib.messages.context_processors.messages",
+)
+
 ROOT_URLCONF = 'smsproject.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
@@ -159,13 +169,17 @@ LOGGING = {
     }
 }
 
+LOGIN_REDIRECT_URL = "/"
+LOGIN_URL = "/login/"
+
+
 SMS_GATEWAY = 'sms.gateway.SmsApiGateway'
 SMS_CALLBACK_IPS = ['46.4.31.8', '62.181.2.52']
 
 SMSAPI_LOGIN = 'api-username'
 SMSAPI_PASS = 'api-password'
 
-
+CLOCKWORK_KEY = "api-key"
 
 try:
     execfile(os.path.join(PROJECT_PATH, 'local_settings.py'))
