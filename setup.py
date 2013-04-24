@@ -28,5 +28,6 @@ setup(
     install_requires=[
         'suds',
         'requests',
+        'django-phonenumber-field',
     ],
 )

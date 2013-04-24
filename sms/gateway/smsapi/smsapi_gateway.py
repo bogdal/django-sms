@@ -13,7 +13,7 @@ class SmsApiGateway(object):
 
     def send_sms(self, sms):
         sms_id = self.api.send_sms(
-            number=sms.recipient,
+            number=str(sms.recipient),
             message=sms.content,
             sender=sms.sender,
             eco=sms.eco,

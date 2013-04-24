@@ -11,7 +11,7 @@ class ClockworkGateway(object):
 
     def send_sms(self, sms):
         sms_id = self.api.send_sms(
-            number=sms.recipient,
+            number=str(sms.recipient).replace('+', ''),
             message=sms.content,
             sender=sms.sender,
         )

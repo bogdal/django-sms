@@ -5,11 +5,12 @@ from django.utils.translation import ugettext as _
 from sms import SmsError
 from sms.gateway.sms_gateway import SmsGateway
 from sms.signals import post_send_sms
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class AbstractSms(models.Model):
     sender = models.CharField(max_length=12, blank=True, null=True, verbose_name=_('sender'))
-    recipient = models.CharField(max_length=11, verbose_name=_('recipient'))
+    recipient = PhoneNumberField()
     content = models.TextField(verbose_name=_('content'))
 
     class Meta:
