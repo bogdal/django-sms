@@ -60,7 +60,7 @@ class Sms(AbstractSms):
     )
 
     flash = models.BooleanField(verbose_name=_('flash'), default=False)
-    secure = models.BooleanField(verbose_name=_('secure'), default=False,
+    secure = models.BooleanField(verbose_name=_('secure'), default=True,
                                  help_text=_('Sms content after sending will be removed'))
     created = models.DateTimeField(_('created'), auto_now_add=True)
     updated = models.DateTimeField(_('updated'), auto_now=True)
